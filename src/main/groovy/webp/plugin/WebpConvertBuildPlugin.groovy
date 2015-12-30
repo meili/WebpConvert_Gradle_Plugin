@@ -24,7 +24,10 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                 def buildType = variant.getVariantData().getVariantConfiguration().getBuildType().name
 
                 if (config.skipDebug == true && "${buildType}".contains("debug")) {
-                    println "skipDebug webpConvertPlugin Task!!!!!!"
+                    if(config.isShowLog == true){
+                        println "skipDebug webpConvertPlugin Task!!!!!!"
+                    }
+
                     return
                 }
 
@@ -35,7 +38,9 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                     println "resPath:" + resPath
                     def dir = new File("${resPath}")
                     dir.eachDirMatch(~/drawable[a-z0-9-]*/) { drawDir ->
-                        println "drawableDir:" + drawDir
+                        if(config.isShowLog == true){
+                            println "drawableDir:" + drawDir
+                        }
                         def file = new File("${drawDir}")
                         file.eachFile { filename ->
 //                            println "filename:" + filename
@@ -54,10 +59,13 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                             if (!isInWhiteList) {
                                 if (name.endsWith(".jpg") || name.endsWith(".png")) {
                                     if (!name.contains(".9")) {
-                                        println "find target pic >>>>>>>>>>>>>" + name
+
                                         def picName = name.split('\\.')[0]
                                         def suffix = name.split('\\.')[1]
-                                        println "picName:" + picName
+                                        if(config.isShowLog == true){
+                                            println "find target pic >>>>>>>>>>>>>" + name
+                                            println "picName:" + picName
+                                        }
 
 //                                        if (n < 5) {
 //                                            println "find target pic >>>>>>>>>>>>>" + name
@@ -69,8 +77,11 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                                         "cwebp -q 75 -m 6 ${filename} -o ${drawDir}/${picName}.webp".execute()
                                         sleep(10)
                                         "rm ${filename}".execute()
-                                        println "delete:" + "${filename}"
-                                        println "generate:" + "${drawDir}/${picName}.webp"
+                                        if(config.isShowLog == true){
+                                            println "delete:" + "${filename}"
+                                            println "generate:" + "${drawDir}/${picName}.webp"
+                                        }
+
                                     }
                                 }
                             }
@@ -91,4 +102,5 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
 
 class WebpInfo {
     boolean skipDebug
+    boolean isShowLog
 }

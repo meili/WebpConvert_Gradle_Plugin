@@ -34,7 +34,7 @@ dependencies {
 upinfo {
     groupId = 'com.mogujie.gradle'
     artifactId = 'webpConvertPlugin'
-//    version = '1.1.32-SNAPSHOT'
-    version = '1.1.32'
+//    version = '1.1.33-SNAPSHOT'
+    version = '1.1.33'
 }
 

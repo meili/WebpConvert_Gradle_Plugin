@@ -1,1 +1,1 @@
-## 动态加载删除依赖
+## webp 批量替换图片 gradle plugin

@@ -1,7 +1,7 @@
 ## webp 批量替换图片 gradle plugin
 
 
-#webp转换插件使用
+# webp转换插件使用
 
 webp转换插件可批量转换 build时 /build/intermediates/res/${flavorName}/${buildType}目录下的图片
 
@@ -15,13 +15,13 @@ webp转换插件可批量转换 build时 /build/intermediates/res/${flavorName}/
 webp插件的运行时机是在 processXXXResource Task前 添加一个名为webpConvertPlugin的 task并执行
 
 
-##webp插件使用前需要安装cwebp工具
+## webp插件使用前需要安装cwebp工具
 具体方法如下：
 
-###homebrew 安装方法：
+### homebrew 安装方法：
 装了brew 工具的同学可以用brew install webp
 
-###macports 安装方法：
+### macports 安装方法：
 
 1. 在http://distfiles.macports.org/MacPorts/中寻找对应你系统的最新版MacPorts安装包下载并安装
 2. 在终端依次运行以下命令
@@ -42,7 +42,7 @@ webp插件的运行时机是在 processXXXResource Task前 添加一个名为web
 
 
 
-webp插件的使用方法如下：
+## webp插件的使用方法如下：
 
 1. 在外层的build.gradle文件中（即与settings.gradle同级的文件）添加如下代码
 

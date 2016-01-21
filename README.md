@@ -1,76 +1,77 @@
-## webp 批量替换图片 gradle plugin
+## webp batch convert pics gradle plugin
+*Read this in other languages: [简体中文](README.zh-cn.md).*
+
+### Introduce
+***
+
+This plugin can find the jpg,png files under the directory of /build/intermediates/res/${flavorName}/${buildType} while gradle building,
+and then auto convert them into webp files.
+
+So,the generated apk is included with the webp pics.
 
 
-# webp转换插件使用
+The rule to find the target pic:
 
-webp转换插件可批量转换 build时 /build/intermediates/res/${flavorName}/${buildType}目录下的图片
+1. the directories which name starts with 'drawable'
+2. the suffix name of the file is 'jpg' or 'png'
+3. exclude the .9 pic
 
-其搜索目标文件的规则如下
-
-1. res下以drawable为开头的目录
-2. 后缀为png,jpg的文件
-3. 不包含.9图片
+The plugin task named 添加一个名为webpConvertPlugin,which will execute before processXXXResource Task 
 
 
-webp插件的运行时机是在 processXXXResource Task前 添加一个名为webpConvertPlugin的 task并执行
+### Install 'webp'  command tools 
+***
+1.  Install by homebrew ：
+        
+        brew install webp
 
+2. install by macports：
 
-## webp插件使用前需要安装cwebp工具
-具体方法如下：
-
-### homebrew 安装方法：
-装了brew 工具的同学可以用brew install webp
-
-### macports 安装方法：
-
-1. 在http://distfiles.macports.org/MacPorts/中寻找对应你系统的最新版MacPorts安装包下载并安装
-2. 在终端依次运行以下命令
+    download the necessary pkg on <http://distfiles.macports.org/MacPorts/> and install 
+    then run the command lines:
 
 		export PATH=$PATH:/opt/local/bin
 		sudo port selfupdate
 		sudo port install webp
 
-通过在终端键入 cwebp判断是否安装成功
+
+3. use 'cwebp' command in terminal to check if it installed success.
 
 
 
-
-安装遇到问题请参考
-
-	https://developers.google.com/speed/webp/docs/precompiled#installing_cwebp_and_dwebp_on_os_x_with_macports
-或@伯约
+reference to :
+	<https://developers.google.com/speed/webp/docs/precompiled#installing_cwebp_and_dwebp_on_os_x_with_macports>
 
 
+### Usage：
+***
+1. add below code in the outer build.gradle file(which is in the same directory of settings.gradle)
 
-## webp插件的使用方法如下：
+     classpath 'com.mogujie.gradle:webpConvertPlugin:1.1.33'
+    
+2. add below code in the inner build.gradle file(which is in the same directory of src)
 
-1. 在外层的build.gradle文件中（即与settings.gradle同级的文件）添加如下代码
+    apply plugin: 'webpConvert'
 
-	  classpath 'com.mogujie.gradle:webpConvertPlugin:1.1.33'
-2. 在内层build.gradle文件中（即与src同级的文件）添加如下代码
-
-		apply plugin: 'webpConvert'
-
-		webpinfo {
-			//是否在debug时跳过webp转换
-    		skipDebug = true
-    		//是否显示log
-    		isShowLog = false
-		}
-
-3.在与src同级的目录下添加名为webp_white_list.txt的文件 此文件提供白名单功能 可以设置哪些文件不会被转换为webp文件，配置时，一个文件名为一行，如
-
-		bill_footer_sitepro_arrow.png
-		cart_checkbox_false.png
+		    webpinfo {
+			    //if skip the task when debug
+    		    skipDebug = true
+    		    //if print log
+    		    isShowLog = false
+		    }
 
 
-好了，万事具备，只要你clean后  assemble一发，png,jpg就替换成功了，so easy
-如：
+3. add one file called 'webp_white_list.txt'(it will be created auto if the file don't exist when the plugin executed),it can keep the file you don't want to convert.just as below:
+		   
+		     bill_footer_sitepro_arrow.png
+		    cart_checkbox_false.png
 
-gradle clean
-gradle assembleDebug
 
-如遇使用问题，请@伯约
+now,clean your project then build it .you will find the webp pics is in your generated apk 
 
+    gradle clean
+    gradle assembleDebug
+
+contact me:boyue@mogujie.com
 
 

@@ -2,13 +2,14 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-        maven { url 'http://maven.mogujie.org/nexus/content/groups/mitpublic/' }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.0'
-        classpath 'com.mogujie.gradle:upaar:1.4'
         classpath 'com.tinify:tinify:1.1.1'
+
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
     }
 }
 
@@ -20,7 +21,7 @@ allprojects {
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'upaar'
+apply from: 'bintray.gradle'
 
 
 dependencies {
@@ -31,10 +32,4 @@ dependencies {
     compile 'com.tinify:tinify:1.1.1'
 }
 
-upinfo {
-    groupId = 'com.mogujie.gradle'
-    artifactId = 'webpConvertPlugin'
-//    version = '1.1.33-SNAPSHOT'
-    version = '1.1.33'
-}
 

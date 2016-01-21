@@ -63,7 +63,7 @@ reference to :
     
 2. add below code in the inner build.gradle file(which is in the same directory of src)
 
-    apply plugin: 'webpConvert'
+            apply plugin: 'webpConvert'
 
 		    webpinfo {
 			    //if skip the task when debug

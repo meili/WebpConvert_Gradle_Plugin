@@ -16,7 +16,19 @@ The rule to find the target pic:
 2. the suffix name of the file is 'jpg' or 'png'
 3. exclude the .9 pic
 
-The plugin task named 添加一个名为webpConvertPlugin,which will execute before processXXXResource Task 
+The plugin task named webpConvertPlugin,which will execute before processXXXResource Task 
+
+### Limit
+***
+Android support webp file naturly from 4.0 ,so you don't need to change your code if you minSdkVersion is 15+
+
+But please pay attention,if your apk is using the jpg with transparency,then the convert webp file will not work below 4.2.1.
+
+
+refer to ：<http://developer.android.com/guide/appendix/media-formats.html>
+
+
+![pic](http://7xod3k.com1.z0.glb.clouddn.com/drjlnosgrtrevhtpuyuvlvcmzeenclxf)
 
 
 ### Install 'webp'  command tools 

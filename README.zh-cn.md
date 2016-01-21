@@ -15,7 +15,14 @@ webp转换插件可批量转换 build时 /build/intermediates/res/${flavorName}/
 
 
 webp插件的运行时机是在 processXXXResource Task前 添加一个名为webpConvertPlugin的 task并执行
+### 局限性
+***
+Android 从4.0开始对webp格式的文件都有原生支持，所以如果你apk 的minSdkVersion 是 15以上 你不需要修改任何关于图片使用的java代码。
 
+但请注意，如果你的项目里的jpg图片包含alpha值的设置，转换后的webp图片是不能再4.2.1以下正常运行的。
+
+请参考：<http://developer.android.com/guide/appendix/media-formats.html>
+![pic](http://7xod3k.com1.z0.glb.clouddn.com/drjlnosgrtrevhtpuyuvlvcmzeenclxf)
 
 ### 安装webp命令行工具
 ***

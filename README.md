@@ -83,6 +83,13 @@ now,clean your project then build it .you will find the webp pics is in your gen
 
     gradle clean
     gradle assembleDebug
+    
+    
+### Licence
+***
+webpConvertPlugin is licensed under the MIT license
+
+
 
 contact me:boyue@mogujie.com
 

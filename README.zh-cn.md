@@ -22,6 +22,7 @@ Android 从4.0开始对webp格式的文件都有原生支持，所以如果你ap
 但请注意，如果你的项目里的jpg图片包含alpha值的设置，转换后的webp图片是不能再4.2.1以下正常运行的。
 
 请参考：<http://developer.android.com/guide/appendix/media-formats.html>
+
 ![pic](http://7xod3k.com1.z0.glb.clouddn.com/drjlnosgrtrevhtpuyuvlvcmzeenclxf)
 
 ### 安装webp命令行工具
@@ -78,6 +79,14 @@ Android 从4.0开始对webp格式的文件都有原生支持，所以如果你ap
 
     gradle clean
     gradle assembleDebug
+    
+    
+### Licence
+***
+webpConvertPlugin is licensed under the MIT license
+
+
+
 
 如遇使用问题，请@伯约  boyue@mogujie.com
 

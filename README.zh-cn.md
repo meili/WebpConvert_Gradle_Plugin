@@ -62,7 +62,7 @@ Android 从4.0开始对webp格式的文件都有原生支持，所以如果你ap
 ***
 1. 在外层的build.gradle文件中（即与settings.gradle同级的文件）添加如下代码
 
-	  classpath 'com.mogujie.gradle:webpConvertPlugin:1.1.33'
+	  classpath 'com.mogujie.gradle:webpConvertPlugin:1.1.34'
 2. 在内层build.gradle文件中（即与src同级的文件）添加如下代码
 
 		apply plugin: 'webpConvert'

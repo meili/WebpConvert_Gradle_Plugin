@@ -66,7 +66,7 @@ reference to :
 ***
 1. add below code in the outer build.gradle file(which is in the same directory of settings.gradle)
 
-     classpath 'com.mogujie.gradle:webpConvertPlugin:1.1.33'
+     classpath 'com.mogujie.gradle:webpConvertPlugin:1.1.34'
     
 2. add below code in the inner build.gradle file(which is in the same directory of src)
 

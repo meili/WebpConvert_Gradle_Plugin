@@ -5,7 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class WebpConvertBuildPlugin implements Plugin<Project> {
-
+    WebpInfo config;
 
     @Override
     void apply(Project project) {
@@ -13,9 +13,8 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
 
         def variants = hasApp ? project.android.applicationVariants : project.android.libraryVariants
 
-        WebpInfo config = project.extensions.create("webpinfo", WebpInfo);
+        config = project.extensions.create("webpinfo", WebpInfo);
 
-//        int n = 0
         project.afterEvaluate {
 
             variants.all { variant ->
@@ -24,9 +23,7 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                 def buildType = variant.getVariantData().getVariantConfiguration().getBuildType().name
 
                 if (config.skipDebug == true && "${buildType}".contains("debug")) {
-                    if(config.isShowLog == true){
-                        println "skipDebug webpConvertPlugin Task!!!!!!"
-                    }
+                    printlog "skipDebug webpConvertPlugin Task!!!!!!"
 
                     return
                 }
@@ -38,12 +35,9 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                     println "resPath:" + resPath
                     def dir = new File("${resPath}")
                     dir.eachDirMatch(~/drawable[a-z0-9-]*/) { drawDir ->
-                        if(config.isShowLog == true){
-                            println "drawableDir:" + drawDir
-                        }
+                        printlog "drawableDir:" + drawDir
                         def file = new File("${drawDir}")
                         file.eachFile { filename ->
-//                            println "filename:" + filename
                             def name = filename.name
                             def f = new File("${project.projectDir}/webp_white_list.txt")
                             if (!f.exists()) {
@@ -51,7 +45,6 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
                             }
                             def isInWhiteList = false
                             f.eachLine { whiteName ->
-//                                println "find white list line: ${whiteName}"
                                 if (name.equals(whiteName)) {
                                     isInWhiteList = true
                                 }
@@ -62,25 +55,15 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
 
                                         def picName = name.split('\\.')[0]
                                         def suffix = name.split('\\.')[1]
-                                        if(config.isShowLog == true){
-                                            println "find target pic >>>>>>>>>>>>>" + name
-                                            println "picName:" + picName
-                                        }
+                                        printlog "find target pic >>>>>>>>>>>>>" + name
+                                        printlog "picName:" + picName
 
-//                                        if (n < 5) {
-//                                            println "find target pic >>>>>>>>>>>>>" + name
-//                                           def tSource = Tinify.fromFile("${filename}");
-//                                            tSource.toFile("${drawDir}/${picName}tiny.${suffix}");
-//                                            n++
-//                                        }
 
                                         "cwebp -q 75 -m 6 ${filename} -o ${drawDir}/${picName}.webp".execute()
                                         sleep(10)
                                         "rm ${filename}".execute()
-                                        if(config.isShowLog == true){
-                                            println "delete:" + "${filename}"
-                                            println "generate:" + "${drawDir}/${picName}.webp"
-                                        }
+                                        printlog "delete:" + "${filename}"
+                                        printlog "generate:" + "${drawDir}/${picName}.webp"
 
                                     }
                                 }
@@ -96,6 +79,12 @@ class WebpConvertBuildPlugin implements Plugin<Project> {
 
         }
 
+    }
+
+    void printlog(String msg) {
+        if (config.isShowLog == true) {
+            println msg
+        }
     }
 }
 

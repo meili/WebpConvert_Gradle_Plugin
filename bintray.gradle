@@ -1,0 +1,71 @@
+apply plugin: 'com.jfrog.bintray'
+
+def siteUrl = 'https://github.com/mogujie'      // 项目的主页
+def gitUrl = 'https://github.com/mogujie'   // Git仓库的url
+group = "com.mogujie.gradle"  // Maven Group ID for the artifact，一般填你唯一的包名
+version = "1.1.34"
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'jar'
+                // Add your description here
+                name 'webp convert plugin' 	//项目描述
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The MIT License (MIT)'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'boyue'		//填写的一些基本信息
+                        name 'boyue'
+                        email 'daydayupon360@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "webp_convert_gradle_plugin"	//发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["MIT"]
+        publish = true
+    }
+}
